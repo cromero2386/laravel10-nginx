@@ -44,6 +44,19 @@ To enter the php container console
     #Executed from the linux console
     docker compose run --rm php /bin/sh
 ```
+
+To run npm, composer, artisan
+
+```bash
+    #Executed from the linux console
+    #Replace "command" by the corresponding command, example docker compose run --rm artisan list
+    docker compose run --rm npm "command"
+
+    docker compose run --rm composer "command" 
+
+    docker compose run --rm artisan "command" 
+```
+    
 Create laravel project via composer:
 
 ```bash
