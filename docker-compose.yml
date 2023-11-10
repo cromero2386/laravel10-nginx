@@ -1,0 +1,80 @@
+version: "3.9"
+
+services:
+  nginx:
+    build:
+      context: ./docker_stack/nginx/.
+    depends_on:
+      - php
+      - mysql828
+    container_name: nginx
+    ports:
+      - 8081:80
+    volumes:
+      - ./src:/var/www/html
+    networks:
+      - laravel
+  php:
+    build:
+      context: ./docker_stack/php/.
+    container_name: php
+    volumes:
+      - ./src:/var/www/html
+    networks:
+      - laravel
+  mysql828:
+    image: mysql:8.0.28
+    container_name: mysql828
+    command: --default-authentication-plugin=mysql_native_password --max_allowed_packet=42505856 --general-log=1 --general-log-file=/logs/general-log.log
+    restart: always
+    ports:
+      - 3310:3306
+    volumes:
+      - mysql8Laravel:/var/lib/mysql
+      - ./docker_stack/mysql/logs:/logs
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    networks:
+      - laravel
+  composer:
+    image: composer:latest
+    container_name: composer
+    volumes:
+      - ./src:/var/www/html
+    working_dir: /var/www/html
+    networks:
+      - laravel
+  artisan:
+    build:
+      context: ./docker_stack/php/.
+    container_name: artisan
+    volumes:
+      - ./src:/var/www/html
+    working_dir: /var/www/html
+    entrypoint: ['php', 'artisan']
+    networks:
+      - laravel
+  npm:
+    image: node:current-alpine
+    container_name: npm
+    volumes:
+      - ./src:/var/www/html
+    working_dir: /var/www/html
+    entrypoint: ['npm']
+    networks:
+      - laravel
+networks:
+  laravel:
+    name: laravel
+volumes:
+  mysql8Laravel:
+    name: mysql8Laravel
+name: laravel10_nginx
+
+
+
+
+
