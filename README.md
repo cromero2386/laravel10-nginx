@@ -65,6 +65,27 @@ If access Forbidden
 
 ```
 
+Stop containers
+
+```bash
+    #Executed from the console
+    docker-compose stop
+
+```
+
+Stop and delete containers
+
+```bash
+    #Executed from the console
+    docker-compose down
+
+```
 ## Test app
 
 Open the browser and enter http://localhost:8081
+
+# Considerations
+
+If you modify port values, verify where it is used and change it otherwise it will not work correctly.
+
+If you already have docker containers, verify not to use the same local ports in order not to have conflicts, in case you want to use the same ones, those containers must be turned off when using this one.
