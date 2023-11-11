@@ -1,5 +1,7 @@
 # Docker, Laravel, Nginx, MySQL8
 
+How to create a Laravel project from scratch with Docker
+
 ## Environment settings
 
 1. Create the `.env` file by making a copy of `.env.example`.
