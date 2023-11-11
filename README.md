@@ -1,4 +1,4 @@
-# Docker Laravel 10 Nginx MySQL8
+# Docker, Laravel 10, Nginx, MySQL8
 
 ## Environment settings
 
