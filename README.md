@@ -8,8 +8,9 @@ How to create a Laravel project from scratch with Docker
 
 ```bash
     #Executed from the linux console
-    sudo cp .env.example .env  
+    sudo cp .env.example .env
 ```
+
 2. Fill in the values of each environment variable
 
 ```bash
@@ -18,6 +19,7 @@ How to create a Laravel project from scratch with Docker
     MYSQL_PASSWORD=
     MYSQL_ROOT_PASSWORD=
 ```
+
 3. Create a `src` folder where the code of your app will persist and give it permissions
 
 ```bash
@@ -25,12 +27,14 @@ How to create a Laravel project from scratch with Docker
     sudo mkdir src
     sudo chmod 777 -R src
 ```
+
 4. Give permission to the folder `docker_stack`.
 
 ```bash
     #Executed from the linux console
     sudo chmod 777 -R docker_stack
 ```
+
 5. Run docker and build
 
 ```bash
@@ -44,36 +48,36 @@ To enter the php container console
 
 ```bash
     #Executed from the linux console
-    docker compose run --rm php /bin/sh
+    docker compose run --rm php82 /bin/sh
 ```
 
 To run npm, composer, artisan
 
 ```bash
     #Executed from the linux console
-    #Replace "command" by the corresponding command, example docker compose run --rm artisan list
+    #Replace "command" by the corresponding command, example docker compose run --rm php82 php artisan list
     docker compose run --rm npm "command"
 
-    docker compose run --rm composer "command" 
+    docker compose run --rm php82 composer "command"
 
-    docker compose run --rm artisan "command" 
+    docker compose run --rm php82 php artisan "command"
 ```
-    
+
 Create laravel project via composer:
 
 ```bash
     #Executed from the linux console
-    docker compose run --rm composer create-project laravel/laravel .
+    docker compose run --rm php82 composer create-project laravel/laravel .
 ```
+
 If access Forbidden
 
 ```bash
     #Executed from the linux console
-    docker compose run --rm php /bin/sh
+    docker-compose run --rm --user root php82 chown -R laravel:laravel /var/www/html
 
-    and then - 
-
-    chown -R laravel:laravel /var/www/html
+    # Executed from the linux console
+    docker compose run --rm php82 /bin/sh
 
     chmod -R 777 /var/www/html/storage
     chmod -R 777 /var/www/html/bootstrap/cache
@@ -95,6 +99,7 @@ Stop and delete containers
     docker-compose down
 
 ```
+
 ## Test app
 
 Open the browser and enter http://localhost:8081
