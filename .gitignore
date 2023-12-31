@@ -1,2 +1,3 @@
 .env
 src
+docker_stack/mysql/
