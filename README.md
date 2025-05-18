@@ -49,12 +49,15 @@ With composer:
     docker compose run --rm php82 composer create-project laravel/laravel .
 ```
 
-## Create react 
-Use Docker in the Vite project with React inside ./frontend
+## Create React Frontend (Vite)
 
 ```bash
     #Executed from the linux console
-    docker run -it --rm -v "$PWD/frontend":/app -w /app node:20-alpine sh
+    mkdir frontend
+
+    sudo chmod 777 -R src
+
+    docker compose run --rm frontend npm create vite@latest . -- --template react
 
 ```
 
@@ -62,25 +65,9 @@ Inside the container frontend, execute:
 
 ```bash
     #Executed from the docker console
-    npm create vite@latest . -- --template react
-
-    # To exit the container.
-    exit
-
-    # In the root directory of the docker project execute sudo chmod 777 -R frontend
-    sudo chmod 777 -R frontend
+    docker compose run --rm frontend npm install
 
 ```
-
-Install the dependencies using Docker Compose:
-
-
-```bash
-    #Executed from the docker console
-    docker compose run frontend npm install
-
-```
-
 After installation
 
 ```bash
@@ -116,6 +103,10 @@ If access Forbidden
     chmod -R 777 /var/www/html/bootstrap/cache
 
 ```
+## Test app
+
+Open the browser and enter http://localhost:8081/ access the laravel project
+Open the browser and access http://localhost:5173/ access the react project
 
 ## Run command line in container
 
@@ -152,10 +143,6 @@ Stop and delete containers
     docker-compose down
 
 ```
-## Test app
-
-Open the browser and enter http://localhost:8081/ access the laravel project
-Open the browser and access http://localhost:5173/ access the frontend
 # Considerations
 
 If you modify port values, verify where it is used and change it otherwise it will not work correctly.
