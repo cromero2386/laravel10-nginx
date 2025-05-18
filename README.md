@@ -41,6 +41,81 @@ How to create a Laravel project from scratch with Docker
     #Executed from the linux console
     docker compose up -d --build
 ```
+## Create Project  laravel 
+With composer:
+
+```bash
+    #Executed from the linux console
+    docker compose run --rm php82 composer create-project laravel/laravel .
+```
+
+## Create react 
+Use Docker in the Vite project with React inside ./frontend
+
+```bash
+    #Executed from the linux console
+    docker run -it --rm -v "$PWD/frontend":/app -w /app node:20-alpine sh
+
+```
+
+Inside the container frontend, execute:
+
+```bash
+    #Executed from the docker console
+    npm create vite@latest . -- --template react
+
+    # To exit the container.
+    exit
+
+    # In the root directory of the docker project execute sudo chmod 777 -R frontend
+    sudo chmod 777 -R frontend
+
+```
+
+Install the dependencies using Docker Compose:
+
+
+```bash
+    #Executed from the docker console
+    docker compose run frontend npm install
+
+```
+
+After installation
+
+```bash
+    # Before running npm run dev, configure the vite.config.js file in the root directory of the frontend container. It should look like this
+    import { defineConfig } from 'vite';
+    import react from '@vitejs/plugin-react';
+
+    export default defineConfig({
+        plugins: [react()],
+        server: {
+            host: '0.0.0.0',
+            port: 5173,
+            strictPort: true
+        },
+        base: '/'
+    });
+    # This will use
+    command: sh -c "npm run dev"
+    # Executed from the docker console
+    docker compose up frontend
+
+```
+If access Forbidden
+
+```bash
+    #Executed from the linux console
+    docker compose run --rm --user root php82 chown -R laravel:laravel /var/www/html
+
+    # Executed from the linux console
+    docker compose run --rm php82 /bin/sh
+
+    chmod -R 777 /var/www/html/storage
+    chmod -R 777 /var/www/html/bootstrap/cache
+
+```
 
 ## Run command line in container
 
@@ -62,28 +137,6 @@ To run npm, composer, artisan
 
     docker compose run --rm php82 php artisan "command"
 ```
-
-Create laravel project via composer:
-
-```bash
-    #Executed from the linux console
-    docker compose run --rm php82 composer create-project laravel/laravel .
-```
-
-If access Forbidden
-
-```bash
-    #Executed from the linux console
-    docker-compose run --rm --user root php82 chown -R laravel:laravel /var/www/html
-
-    # Executed from the linux console
-    docker compose run --rm php82 /bin/sh
-
-    chmod -R 777 /var/www/html/storage
-    chmod -R 777 /var/www/html/bootstrap/cache
-
-```
-
 Stop containers
 
 ```bash
@@ -99,11 +152,10 @@ Stop and delete containers
     docker-compose down
 
 ```
-
 ## Test app
 
-Open the browser and enter http://localhost:8081
-
+Open the browser and enter http://localhost:8081/ access the laravel project
+Open the browser and access http://localhost:5173/ access the frontend
 # Considerations
 
 If you modify port values, verify where it is used and change it otherwise it will not work correctly.
