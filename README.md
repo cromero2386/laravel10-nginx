@@ -70,8 +70,8 @@ To run npm, composer, artisan
 
     docker compose run --rm php82 php artisan "command"
 ```
-## Create laravel 
-Project via composer:
+## Create Project  laravel 
+With composer:
 
 ```bash
     #Executed from the linux console
@@ -79,7 +79,7 @@ Project via composer:
 ```
 
 ## Create react 
-use Docker to create the Vite project with React inside ./frontend
+Use Docker in the Vite project with React inside ./frontend
 
 ```bash
     #Executed from the linux console
