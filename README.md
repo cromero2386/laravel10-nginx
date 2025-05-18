@@ -28,14 +28,22 @@ How to create a Laravel project from scratch with Docker
     sudo chmod 777 -R src
 ```
 
-4. Give permission to the folder `docker_stack`.
+4. Create a `frontend` folder where the code of your app will persist and give it permissions
+
+```bash
+    #Executed from the linux console
+    sudo mkdir frontend
+    sudo chmod 777 -R frontend
+```
+
+5. Give permission to the folder `docker_stack`.
 
 ```bash
     #Executed from the linux console
     sudo chmod 777 -R docker_stack
 ```
 
-5. Run docker and build
+6. Run docker and build
 
 ```bash
     #Executed from the linux console
@@ -68,6 +76,13 @@ Create laravel project via composer:
 ```bash
     #Executed from the linux console
     docker compose run --rm php82 composer create-project laravel/laravel .
+```
+
+Create react project via npm:
+
+```bash
+    #Executed from the linux console
+    docker compose run frontend npm install
 ```
 
 If access Forbidden
