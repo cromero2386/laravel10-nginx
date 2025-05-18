@@ -40,14 +40,12 @@ services:
     networks:
       - laravel
   frontend:
-    image: node:20-alpine
+    build:
+      context: ./docker_stack/react
+      dockerfile: Dockerfile
     container_name: frontend
-    working_dir: /app
-    volumes:
-      - ./frontend:/app
     ports:
       - 5173:5173
-    command: sh -c "npm run dev"
     networks:
       - laravel
 networks:
