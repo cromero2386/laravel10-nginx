@@ -107,7 +107,7 @@ If access Forbidden
 
 ```bash
     #Executed from the linux console
-    docker-compose run --rm --user root php82 chown -R laravel:laravel /var/www/html
+    docker compose run --rm --user root php82 chown -R laravel:laravel /var/www/html
 
     # Executed from the linux console
     docker compose run --rm php82 /bin/sh
@@ -154,8 +154,8 @@ Stop and delete containers
 ```
 ## Test app
 
-Open the browser and enter http://localhost:8081
-
+Open the browser and enter http://localhost:8081/ access the laravel project
+Open the browser and access http://localhost:5173/ access the frontend
 # Considerations
 
 If you modify port values, verify where it is used and change it otherwise it will not work correctly.
