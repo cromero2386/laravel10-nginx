@@ -40,11 +40,11 @@ How to create a Laravel project from scratch with Docker
     #Executed from the linux console
     mkdir frontend
 
-    sudo chmod 777 -R src
-
     docker run --rm -v "$PWD/frontend":/app -w /app node:20-alpine sh -c "npm create vite@latest . -- --template react"
 
     docker run --rm -v "$PWD/frontend":/app -w /app node:20-alpine sh -c "npm install"
+
+    sudo chmod 777 -R frontend
 
 ```
 
@@ -65,10 +65,6 @@ How to create a Laravel project from scratch with Docker
         },
         base: '/'
     });
-    # This will use
-    command: sh -c "npm run dev"
-    # Executed from the docker console
-    docker compose up frontend
 
 ```
 

@@ -41,8 +41,8 @@ services:
       - laravel
   frontend:
     build:
-      context: ./docker_stack/react
-      dockerfile: Dockerfile
+      context: ./frontend   
+      dockerfile: ../docker_stack/react/Dockerfile  
     container_name: frontend
     ports:
       - 5173:5173
