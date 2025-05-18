@@ -41,7 +41,7 @@ services:
     networks:
       - laravel
   npm:
-    image: node:alpine3.18
+    image: node:20-alpine
     container_name: npm
     volumes:
       - ./src:/var/www/html
