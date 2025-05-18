@@ -112,6 +112,19 @@ After installation
 ```bash
     # Executed from the docker console
     docker compose up frontend
+    # Before running npm run dev, configure the vite.config.js file in the root directory of the frontend container. It should look like this
+    import { defineConfig } from 'vite';
+    import react from '@vitejs/plugin-react';
+
+    export default defineConfig({
+        plugins: [react()],
+        server: {
+            host: '0.0.0.0',
+            port: 5173,
+            strictPort: true
+        },
+        base: '/'
+    });
     # This will use
     command: sh -c "npm run dev"
 
