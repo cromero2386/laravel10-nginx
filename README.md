@@ -70,20 +70,53 @@ To run npm, composer, artisan
 
     docker compose run --rm php82 php artisan "command"
 ```
-
-Create laravel project via composer:
+## Create laravel 
+Project via composer:
 
 ```bash
     #Executed from the linux console
     docker compose run --rm php82 composer create-project laravel/laravel .
 ```
 
-Create react project via npm:
+## Create react 
+use Docker to create the Vite project with React inside ./frontend
 
 ```bash
     #Executed from the linux console
-    docker compose run frontend npm install
+    docker run -it --rm -v "$PWD/frontend":/app -w /app node:20-alpine sh
+
 ```
+
+Inside the container frontend, execute:
+
+```bash
+    #Executed from the docker console
+    npm create vite@latest . -- --template react
+
+    # To exit the container.
+    exit
+
+```
+
+Install the dependencies using Docker Compose:
+
+
+```bash
+    #Executed from the docker console
+    docker compose run frontend npm install
+
+```
+
+After installation
+
+```bash
+    # Executed from the docker console
+    docker compose up frontend
+    # This will use
+    command: sh -c "npm run dev"
+
+```
+
 
 If access Forbidden
 
