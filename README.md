@@ -11,7 +11,14 @@ How to create a Laravel project from scratch with Docker
     sudo cp .env.example .env
 ```
 
-2. Fill in the values of each environment variable
+2. Give permission to the folder `docker_stack`.
+
+```bash
+    #Executed from the linux console
+    sudo chmod 777 -R docker_stack
+```
+
+3. Fill in the values of each environment variable
 
 ```bash
     MYSQL_DATABASE=
@@ -20,68 +27,29 @@ How to create a Laravel project from scratch with Docker
     MYSQL_ROOT_PASSWORD=
 ```
 
-3. Create a `src` folder where the code of your app will persist and give it permissions
+4. Create a `src` folder where the code of your app will persist and give it permissions
 
 ```bash
     #Executed from the linux console
     sudo mkdir src
     sudo chmod 777 -R src
 ```
-
-4. Give permission to the folder `docker_stack`.
-
-```bash
-    #Executed from the linux console
-    sudo chmod 777 -R docker_stack
-```
-
-5. Run docker and build
+5. Create React Frontend (Vite)
 
 ```bash
     #Executed from the linux console
-    docker compose up -d --build
-```
-## Create Project  laravel 
-With composer:
+    mkdir frontend
 
-```bash
-    #Executed from the linux console
-    docker compose run --rm php82 composer create-project laravel/laravel .
-```
+    docker run --rm -v "$PWD/frontend":/app -w /app node:20-alpine sh -c "npm create vite@latest . -- --template react"
 
-## Create react 
-Use Docker in the Vite project with React inside ./frontend
+    docker run --rm -v "$PWD/frontend":/app -w /app node:20-alpine sh -c "npm install"
 
-```bash
-    #Executed from the linux console
-    docker run -it --rm -v "$PWD/frontend":/app -w /app node:20-alpine sh
-
-```
-
-Inside the container frontend, execute:
-
-```bash
-    #Executed from the docker console
-    npm create vite@latest . -- --template react
-
-    # To exit the container.
-    exit
-
-    # In the root directory of the docker project execute sudo chmod 777 -R frontend
     sudo chmod 777 -R frontend
 
 ```
 
-Install the dependencies using Docker Compose:
+5. Configure vite.config.js in frontend (if necessary)
 
-
-```bash
-    #Executed from the docker console
-    docker compose run frontend npm install
-
-```
-
-After installation
 
 ```bash
     # Before running npm run dev, configure the vite.config.js file in the root directory of the frontend container. It should look like this
@@ -97,12 +65,25 @@ After installation
         },
         base: '/'
     });
-    # This will use
-    command: sh -c "npm run dev"
-    # Executed from the docker console
-    docker compose up frontend
 
 ```
+
+5. Run docker and build
+
+```bash
+    #Executed from the linux console
+    docker compose up -d --build
+```
+
+## Create Project  laravel 
+With composer:
+
+```bash
+    #Executed from the linux console
+    docker compose run --rm php82 composer create-project laravel/laravel .
+```
+
+
 If access Forbidden
 
 ```bash
@@ -116,6 +97,10 @@ If access Forbidden
     chmod -R 777 /var/www/html/bootstrap/cache
 
 ```
+## Test app
+
+Open the browser and enter http://localhost:8081/ access the laravel project
+Open the browser and access http://localhost:5173/ access the react project
 
 ## Run command line in container
 
@@ -152,10 +137,6 @@ Stop and delete containers
     docker-compose down
 
 ```
-## Test app
-
-Open the browser and enter http://localhost:8081/ access the laravel project
-Open the browser and access http://localhost:5173/ access the frontend
 # Considerations
 
 If you modify port values, verify where it is used and change it otherwise it will not work correctly.
